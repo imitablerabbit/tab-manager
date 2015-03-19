@@ -1,0 +1,131 @@
+//Variables
+var form;
+var urlBox;
+var linksDiv;
+var tabs;
+var maxTitleLength = 30;
+
+//This will initialize the variables
+function init()
+{
+	form = document.getElementById('FORM_ID');
+	urlBox = document.getElementById('URL');
+	linksDiv = document.getElementById('LINKS');
+	
+	getTabs();
+	
+	//Add the event listener
+	if(form != null)
+	{
+		form.addEventListener("submit", createTab);
+		console.log("Event listener added successfully.");
+	}
+	else 
+	{
+		console.log("FORM_ID could not be found!");
+	}
+}
+
+//This will fire when the form is submitted
+//It will create the new tab
+function createTab()
+{
+	var urlPath = "http://www." + urlBox.value;
+	chrome.tabs.create({url: urlPath}, function(){});
+}
+
+//This will produce a list of all the tabs at the bottom of pop-up
+function getTabs()
+{
+	//Get the tabs
+	chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, function(array){
+		tabs = array;
+		var numOfTabs = tabs.length;				
+		 
+		//This will produce the list of tabs in the pop-up
+		if(linksDiv != null)
+		{
+			var string = "";
+			//Colors of google
+			var colors = [
+				"#0266C8",
+				"#F90101",
+				"#F2B50F", 
+				"#0266C8",
+				"#00933B",
+				"#F90101"
+			];
+			
+			//Show the number of open tabs
+			var tabNum = document.getElementById("tabs");
+			tabNum.innerHTML = "TABS: " + numOfTabs.toString();
+			
+			//Add the html for each tab
+			for(var i = 0; i < numOfTabs; i++)
+			{
+				//Limit the size of the title
+				var tabTitle = tabs[i].title.toUpperCase();
+				tabTitle = limitString(tabTitle);
+				
+				//Create the links to each tab
+				string = string + "<hr><li><a href=\"#\" id=\""+ i +"\" style=\"color: " +
+						colors[i%colors.length] + "\">" + tabTitle + "</a></li>";
+			}
+			linksDiv.innerHTML = "<ul>" + string + "</ul>";			
+			
+			//Gets the links and adds a click listener
+			for(var i = 0; i < numOfTabs; i++)
+			{
+				var link = document.getElementById(i.toString());
+				
+				if(link != null)
+				{					
+					//This is needed to make sure the tab isn't changed straight away and has parameters
+					var f = function(i){return function(){changeTab(i);};};
+					link.onclick = f(i);
+				}
+				else
+				{
+					console.log("Could not find the link in the HTML");
+				}
+			}
+		} 
+		else
+		{
+			console.log("Could not find links");
+		}
+	});
+}
+
+//This will reduce the number of characters in a string
+function limitString(text)
+{
+	var textLength = text.length;
+	var newString = "";
+	
+	for(var i = 0; (i < maxTitleLength) && (i < textLength); i++)
+	{
+		newString = newString + text[i];
+	}
+	
+	if(textLength > maxTitleLength)
+	{
+		newString = newString + "...";
+	}
+	
+	return newString;
+}
+
+//Change to the indexed tab
+function changeTab(tabIndex)
+{
+	chrome.tabs.update(tabs[tabIndex].id, {active: true}, function(){});
+}
+
+//This will wait for the page to load and will then
+//call init()
+window.addEventListener("load", function(evt)
+{
+	init();
+});
+

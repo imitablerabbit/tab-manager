@@ -1,0 +1,16 @@
+{
+	"name": "Tab Creator",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "Opens a new specified tab",
+
+	"browser_action": {
+		"default_title": "Tab Creator",
+		"default_popup": "box.html"
+	},
+
+	"permissions": [
+		"tabs",
+		"windows"
+	]
+}
