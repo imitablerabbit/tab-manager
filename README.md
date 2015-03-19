@@ -27,6 +27,5 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Created structure for the extension</li>
 </ul>
 <h4>Installation:</h4>
-<br>
 In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (src). This should then install the extension onto chrome.
 </p1>
