@@ -22,4 +22,6 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Reduce the need for http://</li>
 <li>Created structure for the extension</li>
 </ul>
+<strong>Installation:</strong>
+In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (Tab Creator). This should then install the extension onto chrome.
 </p1>
