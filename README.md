@@ -8,13 +8,13 @@ This is an extension for google chrome which will enable you to manage open tabs
 </p1>
 
 <p1>
-<strong>To Do:</strong>
+<h4>To Do:</h4>
 <ul>
 <li>Add a check for http:// so new tabs will work without errors</li>
 <li>Add a way to change the current tabs address</li>
 <li>Add an internal shortcut to open the extension</li>
 </ul>
-<strong>Change log:</strong>
+<h4>Change log:</h4>
 <ul>
 <li>Add a method to close a tab</li>
 <li>Add a new link to close the tab</li>
@@ -26,7 +26,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Reduce the need for http://</li>
 <li>Created structure for the extension</li>
 </ul>
-<strong>Installation:</strong>
+<h4>Installation:</h4>
 <br>
 In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (src). This should then install the extension onto chrome.
 </p1>
