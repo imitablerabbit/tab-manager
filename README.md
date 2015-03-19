@@ -10,11 +10,15 @@ This is an extension for google chrome which will enable you to manage open tabs
 <p1>
 <strong>To Do:</strong>
 <ul>
-<li>Add a method to close a tab</li>
 <li>Add a check for http:// so new tabs will work without errors</li>
+<li>Add a way to change the current tabs address</li>
+<li>Add an internal shortcut to open the extension</li>
 </ul>
 <strong>Change log:</strong>
 <ul>
+<li>Add a method to close a tab</li>
+<li>Add a new link to close the tab</li>
+<li>Reduced the number of characters for the close button</li>
 <li>Added a counter for the tabs</li>
 <li>Added a limit to the number of characters in a title</li>
 <li>Added a full list of the tabs</li>
@@ -24,5 +28,5 @@ This is an extension for google chrome which will enable you to manage open tabs
 </ul>
 <strong>Installation:</strong>
 <br>
-In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (Tab Creator). This should then install the extension onto chrome.
+In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (src). This should then install the extension onto chrome.
 </p1>

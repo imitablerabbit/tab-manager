@@ -3,7 +3,7 @@ var form;
 var urlBox;
 var linksDiv;
 var tabs;
-var maxTitleLength = 30;
+var maxTitleLength = 16;
 
 //This will initialize the variables
 function init()
@@ -36,7 +36,7 @@ function createTab()
 
 //This will produce a list of all the tabs at the bottom of pop-up
 function getTabs()
-{
+{  
 	//Get the tabs
 	chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, function(array){
 		tabs = array;
@@ -65,17 +65,22 @@ function getTabs()
 			{
 				//Limit the size of the title
 				var tabTitle = tabs[i].title.toUpperCase();
-				tabTitle = limitString(tabTitle);
+				var tabTitleShort = limitString(tabTitle);
 				
 				//Create the links to each tab
 				string = string + "<hr><li><a href=\"#\" id=\""+ i +"\" style=\"color: " +
-						colors[i%colors.length] + "\">" + tabTitle + "</a></li>";
+						colors[i%colors.length] + "\" title=\"" + tabTitle + "\">" + tabTitleShort + 
+						"</a></li><a href=\"#\" class=\"close_button\">x</a>";
 			}
 			linksDiv.innerHTML = "<ul>" + string + "</ul>";			
+			
+			//Find all the close buttons
+			var closeButtons = document.getElementsByClassName("close_button");
 			
 			//Gets the links and adds a click listener
 			for(var i = 0; i < numOfTabs; i++)
 			{
+				//Add the tab changer link
 				var link = document.getElementById(i.toString());
 				
 				if(link != null)
@@ -83,6 +88,18 @@ function getTabs()
 					//This is needed to make sure the tab isn't changed straight away and has parameters
 					var f = function(i){return function(){changeTab(i);};};
 					link.onclick = f(i);
+				}
+				else
+				{
+					console.log("Could not find the link in the HTML");
+				}
+				
+				//Add the tab closer link				
+				if(closeButtons[i] != null)
+				{					
+					//This is needed to make sure the tab isn't changed straight away and has parameters
+					var f = function(i){return function(){closeTab(i);};};
+					closeButtons[i].onclick = f(i);
 				}
 				else
 				{
@@ -120,6 +137,15 @@ function limitString(text)
 function changeTab(tabIndex)
 {
 	chrome.tabs.update(tabs[tabIndex].id, {active: true}, function(){});
+}
+
+//Close the indexed tab
+function closeTab(tabIndex)
+{
+	chrome.tabs.remove(tabs[tabIndex].id, function(){
+		//Sleep until the tab is completely closed
+		setTimeout(function(){getTabs();}, 200);		
+	});
 }
 
 //This will wait for the page to load and will then
