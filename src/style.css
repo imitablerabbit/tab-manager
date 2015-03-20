@@ -7,10 +7,18 @@ body
 
 h3
 {
-	margin: 4px;
-	margin-left: 0;
+	width: 100%;
+	display: block;
+	margin: 0;
 	padding: 0;
+	margin-bottom: 10px;
 	font-size: 120%;
+	text-decoration: underline;
+}
+
+h3.open_tabs
+{	
+	margin-top: 25px;	
 }
 
 p
@@ -20,12 +28,33 @@ p
 	padding: 0;
 }
 
+p.p1
+{
+	display: inline;
+	margin: 0;	
+	margin-left: 10px;	
+	margin-bottom: 10px;
+	float: right;
+	clear: left;
+}
+
 input[type=search]
 {
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	margin-bottom: 8px;
+}
+
+input[type=checkbox]
+{
+	float: right;
+	clear: right;
+	display: inline;
+	position: relative;
+	padding: 0;
+	margin: 0;
+	margin-left: 7px;
 }
 
 ul

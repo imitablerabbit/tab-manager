@@ -1,6 +1,7 @@
 //Variables
 var form;
 var urlBox;
+var checkbox;
 var linksDiv;
 var tabs;
 var maxTitleLength = 16;
@@ -8,8 +9,9 @@ var maxTitleLength = 16;
 //This will initialize the variables
 function init()
 {
-	form = document.getElementById('FORM_ID');
+	form = document.getElementById('FORM_ID_NEW');
 	urlBox = document.getElementById('URL');
+	checkbox = document.getElementById('NEW_TAB_CHECKBOX');
 	linksDiv = document.getElementById('LINKS');
 	
 	getTabs();
@@ -24,14 +26,6 @@ function init()
 	{
 		console.log("FORM_ID could not be found!");
 	}
-}
-
-//This will fire when the form is submitted
-//It will create the new tab
-function createTab()
-{
-	var urlPath = "http://www." + urlBox.value;
-	chrome.tabs.create({url: urlPath}, function(){});
 }
 
 //This will produce a list of all the tabs at the bottom of pop-up
@@ -133,6 +127,27 @@ function limitString(text)
 	return newString;
 }
 
+//This will fire when the form is submitted
+//It will create the new tab
+function createTab()
+{
+	var urlPath = "http://www." + urlBox.value;
+
+	if(checkbox.checked == 1)
+	{
+		chrome.tabs.create({url: urlPath}, function(){});
+	}
+	else
+	{
+		chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT, active: true}, function(array){
+			chrome.tabs.update(array[0].id, {url: urlPath}, function(){});			
+			console.log("Closing window...");
+			window.close();
+		});
+	}
+	
+}
+
 //Change to the indexed tab
 function changeTab(tabIndex)
 {
@@ -144,7 +159,7 @@ function closeTab(tabIndex)
 {
 	chrome.tabs.remove(tabs[tabIndex].id, function(){
 		//Sleep until the tab is completely closed
-		setTimeout(function(){getTabs();}, 200);		
+		setTimeout(function(){getTabs();}, 100);
 	});
 }
 
