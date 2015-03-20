@@ -16,7 +16,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 </ul>
 <h4>Change log:</h4>
 <ul>
-<li>Added a way to open a new url in the current tab<li>
+<li>Added a way to open a new url in the current tab</li>
 <li>Added a checkbox to select whether a new tab should be opened</li>
 <li>Added a method to close a tab</li>
 <li>Added a new link to close the tab</li>
