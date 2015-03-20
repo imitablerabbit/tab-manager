@@ -16,8 +16,10 @@ This is an extension for google chrome which will enable you to manage open tabs
 </ul>
 <h4>Change log:</h4>
 <ul>
-<li>Add a method to close a tab</li>
-<li>Add a new link to close the tab</li>
+<li>Added a way to open a new url in the current tab<li>
+<li>Added a checkbox to select whether a new tab should be opened</li>
+<li>Added a method to close a tab</li>
+<li>Added a new link to close the tab</li>
 <li>Reduced the number of characters for the close button</li>
 <li>Added a counter for the tabs</li>
 <li>Added a limit to the number of characters in a title</li>
@@ -27,5 +29,18 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Created structure for the extension</li>
 </ul>
 <h4>Installation:</h4>
-In order to install the extension, download the files and extract them. Next open up google chrome, click on the menu icon and then navigate to extensions (Alternatively type chropme://extensions in the url bar). Select the developer mode checkbox, this will bring up some more options. Click on "Load unpacked extension..." and navigate to the directory containing the extension files (src). This should then install the extension onto chrome.
+<ol>
+<li>Download the zipped files</li>
+<li>Extract the files</li>
+<li>Open up google chrome</li>
+<li>Navigate to extension viewer</li>
+<ul>
+<li>(chrome://extensions in the url bar)</li>
+<li>Options menu >> More tools >> Extensions</li>
+</ul>
+<li>Select the 'Developer mode' checkbox</li>
+<li>Click on 'Load unpacked extension...'</li>
+<li>Locate the src folder that was extracted earlier</li>
+<li>Enjoy...</li>
+</ol>
 </p1>
