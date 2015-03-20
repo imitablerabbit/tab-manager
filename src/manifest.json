@@ -9,6 +9,17 @@
 		"default_popup": "box.html"
 	},
 
+	"commands": {
+		"_execute_browser_action": {
+            "suggested_key": {
+              "windows": "Ctrl+Shift+Y",
+              "mac": "Command+Shift+Y",
+              "chromeos": "Ctrl+Shift+U",
+              "linux": "Ctrl+Shift+J"
+            }
+          },
+	},
+
 	"permissions": [
 		"tabs",
 		"windows"
