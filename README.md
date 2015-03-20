@@ -33,11 +33,11 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Download the zipped files</li>
 <li>Extract the files</li>
 <li>Open up google chrome</li>
-<li>Navigate to extension viewer</li>
+<li>Navigate to extension viewer
 <ul>
 <li>(chrome://extensions in the url bar)</li>
 <li>Options menu >> More tools >> Extensions</li>
-</ul>
+</ul></li>
 <li>Select the 'Developer mode' checkbox</li>
 <li>Click on 'Load unpacked extension...'</li>
 <li>Locate the src folder that was extracted earlier</li>
