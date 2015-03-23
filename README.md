@@ -16,6 +16,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 </ul>
 <h4>Change log:</h4>
 <ul>
+<li>Added a shortcut to open the pop-up window</li>
 <li>Added a way to open a new url in the current tab</li>
 <li>Added a checkbox to select whether a new tab should be opened</li>
 <li>Added a method to close a tab</li>
@@ -41,6 +42,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Select the 'Developer mode' checkbox</li>
 <li>Click on 'Load unpacked extension...'</li>
 <li>Locate the src folder that was extracted earlier</li>
+<li>Press "Ctrl + Shift + 1" to open up the extension window in order to use it in full screen</li>
 <li>Enjoy...</li>
 </ol>
 </p1>
