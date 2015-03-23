@@ -131,8 +131,19 @@ function limitString(text)
 //It will create the new tab
 function createTab()
 {
-	var urlPath = "http://www." + urlBox.value;
+	//Check whether the user entered http://
+	var httpString = "http://";
+	var startString = urlBox.value.substring(0, 7);
+	var urlPath = "";
+	
+	if(startString != httpString)
+	{
+		urlPath = "http://www.";
+	}
 
+	urlPath = urlPath + urlBox.value;
+
+	//check if the page should be a new tab
 	if(checkbox.checked == 1)
 	{
 		chrome.tabs.create({url: urlPath}, function(){});

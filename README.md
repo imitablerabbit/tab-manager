@@ -10,6 +10,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 <p1>
 <h4>To Do:</h4>
 <ul>
+<li>Draw the icon for the extension</li>
 <li>Add a check for http:// so new tabs will work without errors</li>
 </ul>
 <h4>Change log:</h4>
