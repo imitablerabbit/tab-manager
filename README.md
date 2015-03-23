@@ -11,8 +11,6 @@ This is an extension for google chrome which will enable you to manage open tabs
 <h4>To Do:</h4>
 <ul>
 <li>Add a check for http:// so new tabs will work without errors</li>
-<li>Add a way to change the current tabs address</li>
-<li>Add an internal shortcut to open the extension</li>
 </ul>
 <h4>Change log:</h4>
 <ul>
