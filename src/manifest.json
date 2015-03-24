@@ -3,6 +3,10 @@
 	"version": "1.0",
 	"manifest_version": 2,
 	"description": "Opens a new specified tab",
+	
+	"icons": {
+		"48": "icon48.png"
+	},
 
 	"browser_action": {
 		"default_title": "Tab Creator",

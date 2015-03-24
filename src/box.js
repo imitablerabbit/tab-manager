@@ -41,14 +41,7 @@ function getTabs()
 		{
 			var string = "";
 			//Colors of google
-			var colors = [
-				"#0266C8",
-				"#F90101",
-				"#F2B50F", 
-				"#0266C8",
-				"#00933B",
-				"#F90101"
-			];
+			var color = "#0266C8";
 			
 			//Show the number of open tabs
 			var tabNum = document.getElementById("tabs");
@@ -63,7 +56,7 @@ function getTabs()
 				
 				//Create the links to each tab
 				string = string + "<hr><li><a href=\"#\" id=\""+ i +"\" style=\"color: " +
-						colors[i%colors.length] + "\" title=\"" + tabTitle + "\">" + tabTitleShort + 
+						color + "\" title=\"" + tabTitle + "\">" + tabTitleShort + 
 						"</a></li><a href=\"#\" class=\"close_button\">x</a>";
 			}
 			linksDiv.innerHTML = "<ul>" + string + "</ul>";			

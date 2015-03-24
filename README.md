@@ -11,10 +11,10 @@ This is an extension for google chrome which will enable you to manage open tabs
 <h4>To Do:</h4>
 <ul>
 <li>Draw the icon for the extension</li>
-<li>Add a check for http:// so new tabs will work without errors</li>
 </ul>
 <h4>Change log:</h4>
 <ul>
+<li>Added a check for http:// so new tabs will work without errors</li>
 <li>Added a shortcut to open the pop-up window</li>
 <li>Added a way to open a new url in the current tab</li>
 <li>Added a checkbox to select whether a new tab should be opened</li>
