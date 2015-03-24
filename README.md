@@ -10,6 +10,8 @@ This is an extension for google chrome which will enable you to manage open tabs
 <p1>
 <h4>To Do:</h4>
 <ul>
+<li>Upload to the chrome extension store</li>
+<li>Pack the extension</li>
 <li>Draw 16x16 png icon for the extension</li>
 </ul>
 <h4>Change log:</h4>
