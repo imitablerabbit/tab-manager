@@ -41,6 +41,7 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Click on the install button in the pop-up window</li>
 <li>Enjoy!</li>
 </ol>
+<strong>Version 2</strong>
 <ol>
 <li>Download the zipped files</li>
 <li>Extract the files</li>
