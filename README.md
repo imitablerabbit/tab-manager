@@ -11,11 +11,11 @@ This is an extension for google chrome which will enable you to manage open tabs
 <h4>To Do:</h4>
 <ul>
 <li>Upload to the chrome extension store</li>
-<li>Pack the extension</li>
-<li>Draw 16x16 png icon for the extension</li>
 </ul>
 <h4>Change log:</h4>
 <ul>
+<li>Pack the extension</li>
+<li>Draw 16x16 png icon for the extension</li>
 <li>Added a check for http:// so new tabs will work without errors</li>
 <li>Added a shortcut to open the pop-up window</li>
 <li>Added a way to open a new url in the current tab</li>
@@ -31,6 +31,16 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Created structure for the extension</li>
 </ul>
 <h4>Installation:</h4>
+<strong>Version 1</strong>
+<ol>
+<li>Download the files from github</li>
+<li>Extract the items</li>
+<li>Open up a chrome window</li>
+<li>Navigate to the tab-creator files in explorer</li>
+<li>Drag the tab-creator.crx file into the chrome window</li>
+<li>Click on the install button in the pop-up window</li>
+<li>Enjoy!</li>
+</ol>
 <ol>
 <li>Download the zipped files</li>
 <li>Extract the files</li>
@@ -43,7 +53,8 @@ This is an extension for google chrome which will enable you to manage open tabs
 <li>Select the 'Developer mode' checkbox</li>
 <li>Click on 'Load unpacked extension...'</li>
 <li>Locate the src folder that was extracted earlier</li>
-<li>Press "Ctrl + Shift + 1" to open up the extension window in order to use it in full screen</li>
 <li>Enjoy...</li>
 </ol>
+<strong>Use</strong><br>
+Press "Ctrl + Shift + Y" to open up the extension window in order to use it in full screen
 </p1>
