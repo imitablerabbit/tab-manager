@@ -1,4 +1,4 @@
-<h1>tab-creator</h1>
+<h1>tab-manager</h1>
 
 <h3>Full screen tab management for google chrome</h3>
 <h4>Description</h4>
