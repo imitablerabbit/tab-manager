@@ -1,16 +1,17 @@
 {
-	"name": "Tab Creator",
+	"name": "Tab Manager",
 	"version": "1.0",
 	"manifest_version": 2,
 	"description": "Opens a new specified tab",
 	
 	"icons": {	
 		"16": "icon16.png",
-		"48": "icon48.png"
+		"48": "icon48.png",
+        "128": "icon128.png"
 	},
 
 	"browser_action": {
-		"default_title": "Tab Creator",
+		"default_title": "Tab Manager",
 		"default_popup": "box.html"
 	},
 
