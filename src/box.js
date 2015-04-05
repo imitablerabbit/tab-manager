@@ -131,7 +131,7 @@ function createTab()
 	
 	if(startString != httpString)
 	{
-		urlPath = "http://www.";
+		urlPath = "http://";
 	}
 
 	urlPath = urlPath + urlBox.value;
