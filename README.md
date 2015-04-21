@@ -1,15 +1,14 @@
 <h1>tab-manager</h1>
 
 <h3>Full screen tab management for google chrome</h3>
-<h4>Description</h4>
-
+<h4>Description:</h4>
 <p1>
   This is an extension for google chrome which will enable you to manage open tabs when inside fullscreen on a webpage.
 </p1>
 
 <p1>
   <h4>Chrome Store:</h4>
-  Now on the chrome store!
+  Now on the chrome store!<br>
   link: 
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
   <h4>Change log:</h4>
