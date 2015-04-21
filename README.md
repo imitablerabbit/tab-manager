@@ -9,7 +9,7 @@
 <p1>
   <h4>Chrome Store:</h4>
   Now on the chrome store!<br>
-  link: 
+  Link: 
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
   <h4>Change log:</h4>
   <ul>
