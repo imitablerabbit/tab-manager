@@ -1,15 +1,15 @@
 <h1>tab-manager</h1>
 
-<h3>Full screen tab management for google chrome</h3>
-<h4>Description:</h4>
-<p1>
+<p>Full screen tab management for google chrome</p>
+<h2>Description:</h2>
+<p>
   This is an extension for google chrome which will enable you to manage open tabs when inside fullscreen on a webpage.
-</p1>
+</p>
 
-<p1>
+<p>
   <h4>Chrome Store:</h4>
   Now on the chrome store!<br>
-  Link: 
+  Link:
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
   <h4>Change log:</h4>
   <ul>
@@ -30,7 +30,7 @@
     <li>Reduce the need for http://</li>
     <li>Created structure for the extension</li>
   </ul>
-  <h4>Installation:</h4>
+  <h2>Installation:</h2>
   <strong>Version 1</strong>
   <ol>
     <li>Download the files from github</li>
@@ -59,4 +59,7 @@
   </ol>
   <strong>Use</strong><br>
   Press "Ctrl + Shift + Y" to open up the extension window in order to use it in full screen
-</p1>
+</p>
+<h2>Screenshots:</h2>
+<strong>Tab Manager screenshot</strong>
+![Tab Manager Screenshot](screenshots/screenshot2.png?raw=true)
