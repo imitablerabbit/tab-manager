@@ -55,7 +55,7 @@
     <li>Select the 'Developer mode' checkbox</li>
     <li>Click on 'Load unpacked extension...'</li>
     <li>Locate the src folder that was extracted earlier</li>
-    <li>Enjoy...</li>
+    <li>Enjoy!</li>
   </ol>
   <strong>Use</strong><br>
   Press "Ctrl + Shift + Y" to open up the extension window in order to use it in full screen
