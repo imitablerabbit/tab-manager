@@ -62,4 +62,5 @@
 </p>
 <h2>Screenshots:</h2>
 <strong>Tab Manager screenshot</strong>
+
 ![Tab Manager Screenshot](screenshots/screenshot2.png?raw=true)
