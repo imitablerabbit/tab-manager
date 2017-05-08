@@ -1,18 +1,20 @@
 {
 	"name": "Tab Manager",
-	"version": "1.11",
+	"version": "1.12",
 	"manifest_version": 2,
 	"description": "Manage tabs inside fullscreen mode",
 	
 	"icons": {	
-		"16": "icon16.png",
-		"48": "icon48.png"
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png"
 	},
 
 	"browser_action": {
 		"default_title": "Tab Manager",
-		"default_popup": "box.html"
+		"default_popup": "manager.html"
 	},
+
+	"options_page": "options.html",
 
 	"commands": {
 		"_execute_browser_action": {
@@ -21,12 +23,12 @@
 				"mac": "Command+Shift+Y",
 				"chromeos": "Ctrl+Shift+Y",
 				"linux": "Ctrl+Shift+Y"
-
 			}
 		}
 	},
 	
 	"permissions": [
-		"tabs"
+		"tabs",
+		"storage"
 	]
 }
