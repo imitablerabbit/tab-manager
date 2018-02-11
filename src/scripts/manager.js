@@ -213,6 +213,7 @@ function editTab(tabIndex) {
 	urlEdit.value = url;	
 	urlEdit.name = "url";
 	urlEdit.id = "url";
+
 	var urlEditLabel = document.createElement("Label");
 	urlEditLabel.setAttribute("for", "url");
 	urlEditLabel.innerText = "URL:";
@@ -229,6 +230,8 @@ function editTab(tabIndex) {
 	editForm.appendChild(urlEdit);
 	editForm.appendChild(editSubmit);
 	li.appendChild(editForm);
+
+	urlEdit.focus();
 
 	// Change the edit button to represent the new save button
 	editButton.innerText = "Save";
