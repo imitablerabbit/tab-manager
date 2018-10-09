@@ -18,12 +18,12 @@ label, p {
 	margin-bottom: 3px;
 }
 
-#new_tab_form {
+#new-tab-form {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-#new_tab_form input[type=text]
+#new-tab-form input[type=text]
 {
 	width: 70%;
 	flex-grow: 2;
@@ -72,8 +72,7 @@ a {
 	color: gray;
 }
 
-
-a.edit_button {
+a.edit-button {
 	vertical-align: center;
 	display: inline;
 	float: right;
@@ -84,12 +83,12 @@ a.edit_button {
 	padding: 0px 5px;
 }
 
-a.edit_button:hover {
+a.edit-button:hover {
 	color: #0266C8;
 	cursor: pointer;
 }
 
-a.close_button {
+a.close-button {
 	display: inline;
 	float: right;
 	font-size: 140%;
@@ -99,7 +98,7 @@ a.close_button {
 	padding: 0px 5px;
 }
 
-a.close_button:hover {
+a.close-button:hover {
 	color: red;
 	cursor: pointer;
 }

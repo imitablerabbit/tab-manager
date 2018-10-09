@@ -1,146 +1,135 @@
-//Variables
+// HTML elements to be populated
 var newForm;
 var newUrlBox;
 var linksDiv;
-var tabs;
+var tabCountSpan;
+
+// Global config options
 var maxTitleLength = 16;
-var capitalisation;
+var capitalisation = "uppercase";
 
-//This will initialize the variables
+// The tab data
+var tabs; 
+
+// Initialise the global variables and load the config.
 function init() {
-	newForm = document.getElementById('new_tab_form');
-	newUrlBox = document.getElementById('new_url');
+	newForm = document.getElementById('new-tab-form');
+	newUrlBox = document.getElementById('new-url');
 	linksDiv = document.getElementById('links');
-
-	chrome.storage.sync.get("capitalisation", function(items) {
-		capitalisation = items.capitalisation;
-		getTabs();		
-
-		//Add the event listener
-		if (newForm != null) {
-			newForm.addEventListener("submit", createTab);
-			console.log("Event listener added successfully.");
-		} else {
-			console.log("FORM_ID could not be found!");
-		}
-	});
-
+	tabCountSpan = document.getElementById("tabs-num");
 }
 
-//This will produce a list of all the tabs at the bottom of pop-up
+// Load the config from the local storage
+function loadConfig(onConfigLoad) {
+	chrome.storage.sync.get(onConfigLoad);
+}
+
+// Set the global config so it can be used in the rest of the script
+function setGlobalConfig(config) {
+	console.log(config);
+	if (config.capitalisation != null) {
+		capitalisation = config.capitalisation;
+	}
+	if (config.titleLength != null) {
+		maxTitleLength = config.titleLength;
+	}
+}
+
+// Query all of the tabs and generate the list of tabs at the
+// bottom of the extension page.
 function getTabs() {
-	//Get the tabs
 	chrome.tabs.query({
 		windowId: chrome.windows.WINDOW_ID_CURRENT
-	}, function (array) {
-		tabs = array;
-		var numOfTabs = tabs.length;
-
-		//This will produce the list of tabs in the pop-up
-		if (linksDiv != null) {
-			var string = "";
-
-			// Show the number of open tabs
-			var tabNum = document.getElementById("tabs-num");
-			tabNum.innerHTML = numOfTabs.toString();
-
-			// Add the html for each tab
-			for (var i = 0; i < numOfTabs; i++) {
-				// Limit the size of the title
-				var tabTitle = tabs[i].title;
-				var tabTitleShort = generateTitle(tabTitle);
-
-				var tabURL = tabs[i].url;
-
-				// Create the links to each tab
-				string = string + "<hr><li id='tab-" + i + "'><a href='#' id='" + i + "' class='tab' title='" + tabTitle + "' data-url='" + tabURL + "'>" + tabTitleShort +
-					"</a><a class='close_button'>x</a><a class='edit_button'>Edit</a></li>";
-			}
-			linksDiv.innerHTML = "<ul>" + string + "</ul>";
-
-			//Find all the close buttons
-			var closeButtons = document.getElementsByClassName("close_button");
-			var editButtons = document.getElementsByClassName("edit_button");
-
-			//Gets the links and adds a click listener
-			for (var i = 0; i < numOfTabs; i++) {
-				//Add the tab changer link
-				var link = document.getElementById(i.toString());
-
-				if (link != null) {
-					//This is needed to make sure the tab isn't changed straight away and has parameters
-					var f = function (i) {
-						return function () {
-							changeTab(i);
-						};
-					};
-					link.onclick = f(i);
-				} else {
-					console.log("Could not find the link in the HTML");
-				}
-
-				// Add the edit buttons functionality			
-				if (editButtons[i] != null) {
-					//This is needed to make sure the tab isn't changed straight away and has parameters
-					var f = function (i) {
-						return function () {
-							editTab(i);
-						};
-					};
-					editButtons[i].onclick = f(i);
-				} else {
-					console.log("Could not find the link in the HTML");
-				}
-
-				//Add the tab closer link				
-				if (closeButtons[i] != null) {
-					//This is needed to make sure the tab isn't changed straight away and has parameters
-					var f = function (i) {
-						return function () {
-							closeTab(i);
-						};
-					};
-					closeButtons[i].onclick = f(i);
-				} else {
-					console.log("Could not find the link in the HTML");
-				}
-			}
-		} else {
-			console.log("Could not find links");
+	}, function (tabData) {
+		tabs = tabData
+		if (linksDiv == null) {
+			console.log("Error: unable to populate linksDiv: linksDiv is null");
+			return
 		}
+		setTabCount(tabs.length);
+		while (linksDiv.firstChild) {
+			linksDiv.removeChild(linksDiv.firstChild);
+		}
+
+		// Create a tab element for each of the tabs found
+		var linksUl = document.createElement("ul"); 
+		for (var i = 0; i < tabs.length; i++) {
+			var tabElement = createTabElement(i, tabs[i]);
+			var hr = document.createElement("hr");
+			linksUl.appendChild(hr);
+			linksUl.appendChild(tabElement);
+		}
+		linksDiv.appendChild(linksUl);
 	});
+}
+
+function setTabCount(count) {
+	tabCountSpan.innerHTML = count;
+}
+
+function createTabElement(index, tab) {
+	var tabTitle = generateTitle(tab.title);
+	var tabURL = tab.url;
+	var tabElement = document.createElement("li");
+	var tabLink = document.createElement("a");
+	var closeButton = createTabCloseButton(index);
+	var editButton = createTabEditButton(index);
+	tabElement.id = "tab-" + index.toString();
+	tabLink.id = index;
+	tabLink.href = "#"; // make the cursor a pointer
+	tabLink.classList.add("tab");
+	tabLink.dataset.url = tabURL;
+	tabLink.innerText = tabTitle;
+	tabLink.onclick = function() {
+		changeTab(index);
+	};
+	tabElement.appendChild(tabLink);
+	tabElement.appendChild(closeButton);
+	tabElement.appendChild(editButton);
+	return tabElement;
+}
+
+function createTabCloseButton(index) {
+	var closeLink = document.createElement("a");
+	closeLink.href = "#";
+	closeLink.innerText = "x";
+	closeLink.classList.add("close-button");
+	closeLink.onclick = function() {
+		closeTab(index);
+	}
+	return closeLink;
+}
+
+function createTabEditButton(index) {
+	var editLink = document.createElement("a");
+	editLink.href = "#";
+	editLink.innerText = "Edit";
+	editLink.classList.add("edit-button");
+	editLink.onclick = function(event) {
+		editTab(event.target.parentElement, index);
+	}
+	return editLink;
 }
 
 // This will return the correct formation of the tab title to be displayed on 
 // page
 function generateTitle(tabTitle) {
-	// Get whether the title should be uppercase, lowercase, default or 
-	// sentence case
 	if (capitalisation === "uppercase") {
 		tabTitle = tabTitle.toUpperCase();
 	} else if (capitalisation === "lowercase") {
 		tabTitle = tabTitle.toLowerCase();
 	}
-
-	// Shorten the title
 	return limitString(tabTitle, maxTitleLength);
 }
 
 //This will reduce the number of characters in a string
 function limitString(text, limitSize) {
 	var textLength = text.length;
-	var newString = "";
-
-	for (var i = 0;
-		(i < limitSize) && (i < textLength); i++) {
-		newString = newString + text[i];
-	}
-
+	text = text.substring(0, limitSize);
 	if (textLength > limitSize) {
-		newString = newString + "...";
+		text = text + "...";
 	}
-
-	return newString;
+	return text;
 }
 
 function addHttp(url) {
@@ -183,26 +172,17 @@ function changeTab(tabIndex) {
 }
 
 // Change data relating to the tab specified
-function editTab(tabIndex) {
+function editTab(tabElement, tabIndex) {
 
 	// Get the tab list item and edit button
-	var li = document.getElementById("tab-"+tabIndex);
-	var editButton = liEditButton = li.querySelector(".edit_button");
+	var li = tabElement
+	var editButton = liEditButton = li.querySelector(".edit-button");
 	var tabLink = li.querySelector(".tab");
 	var url = tabLink.dataset.url;
 
-	// // Create Edit form
+	// Create Edit form
 	var editForm = document.createElement("form");
 	editForm.id = "edit_form";
-
-	// var titleEdit = document.createElement("input");
-	// titleEdit.type = "text";
-	// titleEdit.value = tabLink.title;
-	// titleEdit.name = "title";
-	// titleEdit.id = "title";
-	// var titleEditLabel = document.createElement("Label");
-	// titleEditLabel.setAttribute("for", "title");
-	// titleEditLabel.innerText = "TITLE:";
 
 	var urlEdit = document.createElement("input");
 	urlEdit.type = "text";
@@ -220,8 +200,6 @@ function editTab(tabIndex) {
 	editSubmit.style.display = "none";
 
 	// Add everything to the form
-	// editForm.appendChild(titleEditLabel);
-	// editForm.appendChild(titleEdit);
 	editForm.appendChild(urlEditLabel);
 	editForm.appendChild(urlEdit);
 	editForm.appendChild(editSubmit);
@@ -236,12 +214,6 @@ function editTab(tabIndex) {
 
 		// Handle the edit form submission
 		var newURL = urlEdit.value;
-		// var newTitle = titleEdit.value;
-
-		// // Set the new title
-		// var newTitleShort = limitString(newTitle, maxTitleLength);
-		// tabLink.title = newTitle;
-		// tabLink.innerText = newTitleShort;
 
 		// Set the new URL
 		if (newURL !== url) {
@@ -254,7 +226,7 @@ function editTab(tabIndex) {
 		// Change it back to save
 		editButton.innerText = "Edit";
 		editButton.onclick = function() {
-			editTab(tabIndex);
+			editTab(tabElement, tabIndex);
 		}
 	}
 	editButton.onclick = f;
@@ -264,15 +236,26 @@ function editTab(tabIndex) {
 // Close the indexed tab
 function closeTab(tabIndex) {
 	chrome.tabs.remove(tabs[tabIndex].id, function () {
-		//Sleep until the tab is completely closed
+		// Sleep until the tab is completely closed
 		setTimeout(function () {
 			getTabs();
 		}, 100);
 	});
 }
 
-//This will wait for the page to load and will then
-//call init()
+// Wait for the DOM to load before loading config.
 window.addEventListener("load", function (evt) {
 	init();
+	loadConfig(function(config) {
+		setGlobalConfig(config);
+		getTabs();
+
+		// Add the event listener
+		if (newForm != null) {
+			newForm.addEventListener("submit", createTab);
+			console.log("Event listener added successfully.");
+		} else {
+			console.log("FORM_ID could not be found!");
+		}
+	});
 });
