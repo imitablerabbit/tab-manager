@@ -154,16 +154,12 @@ function addHttp(url) {
 //It will create the new tab
 function createTab(event) {
 	event.preventDefault();
-
-	//Check whether the user entered http://
-	urlPath = addHttp(newUrlBox.value);
-
-	//check if the page should be a new tab
-	chrome.tabs.create({
-		url: urlPath
-	}, function () {});
+	var newTabData = {};
+	if (newUrlBox.value != "") {
+		newTabData.url = addHttp(newUrlBox.value);
+	}
+	chrome.tabs.create(newTabData, function () {});
 }
-
 
 // Changes the location of the tab with the specified index to the new url.
 function changeLocation(tabIndex, newURL) {
