@@ -41,8 +41,8 @@ function getTabs() {
 			var string = "";
 
 			// Show the number of open tabs
-			var tabNum = document.getElementById("tabs");
-			tabNum.innerHTML = "TABS: " + numOfTabs.toString();
+			var tabNum = document.getElementById("tabs-num");
+			tabNum.innerHTML = numOfTabs.toString();
 
 			// Add the html for each tab
 			for (var i = 0; i < numOfTabs; i++) {
