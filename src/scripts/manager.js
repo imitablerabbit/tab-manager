@@ -156,8 +156,7 @@ function createTab(event) {
 	event.preventDefault();
 	var newTabData = {};
 	if (newUrlBox.value != "") {
-		newTabData.url = newUrlBox;
-		urlPath = addHttp(newUrlBox.value);
+		newTabData.url = addHttp(newUrlBox.value);
 	}
 	chrome.tabs.create(newTabData, function () {});
 }
