@@ -34,13 +34,24 @@
 				<legend>Tab Title Contraction</legend>
 
 				<p>Should the tab titles be contracted if they contain too many characters?</p>
-				<label for="title-should-contract">Should Contract Title?:</label>
+				<label for="title-should-contract">Contract Title:</label>
 				<input type="checkbox" name="title-should-contract" id="title-should-contract" checked=true>
 				<br>
 
 				<p>How many characters should be displayed before the title is contracted?</p>
 				<label for="title-length">Characters Count:</label>
 				<input type="number" name="title-length" id="title-length" value="15">
+			</fieldset>
+
+			<fieldset>
+				<legend>Filtering</legend>
+
+				
+				<p>Filtering can be used to reduce the number tabs displayed in the "Open Tabs" section of tab manager. When a character is entered into the filter box, only the tabs matching the string will be shown. The filter input supports regex for more complex filtering.</p>
+
+				<p>Should the filtering input box be displayed in the tab manager?</p>
+				<label for="filter-show">Show Filtering:</label>
+				<input type="checkbox" name="filter-show" id="filter-show" checked=true>
 			</fieldset>
 		</div>
 

@@ -1,6 +1,7 @@
 var capitalisation = "uppercase";
 var titleShouldContract = true;
 var titleLength = 15;
+var filterShow = true;
 
 // Config menu elements
 var capitalisationDefaultRadio;
@@ -8,6 +9,7 @@ var capitalisationUppercaseRadio;
 var capitalisationLowercaseRadio;
 var titleShouldContractCheck;
 var titleLengthNumber;
+var filterShowCheck;
 
 function init() {
     capitalisationDefaultRadio = document.getElementById("capitalisation-default");
@@ -15,6 +17,7 @@ function init() {
     capitalisationLowercaseRadio = document.getElementById("capitalisation-lowercase");
     titleShouldContractCheck = document.getElementById("title-should-contract");
     titleLengthNumber = document.getElementById("title-length");
+    filterShowCheck = document.getElementById("filter-show");
 }
 
 function loadConfig(onConfigLoad) {
@@ -30,10 +33,14 @@ function onConfigLoad(config) {
     }
 	if (config.titleLength != null) {
 		titleLength = config.titleLength;
-	}
+    }
+    if (config.filterShow != null) {
+        filterShow = config.filterShow;
+    }
 
     setCapitalisation(capitalisation);
     setTitleLength(titleShouldContract, titleLength);
+    setFilterShow(filterShow);
 }
 
 function setCapitalisation(capitalisation) {
@@ -47,13 +54,16 @@ function setCapitalisation(capitalisation) {
 }
 
 function setTitleLength(titleShouldContract, titleLength) {
+    titleShouldContractCheck.checked = titleShouldContract;
     if (titleShouldContract) {
-        titleShouldContractCheck.checked = true;
         titleLengthNumber.value = titleLength;
     } else {
-        titleShouldContractCheck.checked = false;
         titleLengthNumber.disabled = true;
     }
+}
+
+function setFilterShow(filterShow) {
+    filterShowCheck.checked = filterShow;
 }
 
 function setConfig(key, value) {
@@ -78,15 +88,17 @@ window.addEventListener("load", function (evt) {
     var onTitleShouldContractChange = function(event) {
         var checked = event.target.checked;
         setConfig("titleShouldContract", checked);
-        if (checked) {
-            titleLengthNumber.disabled = false;
-        } else {
-            titleLengthNumber.disabled = true;
-        }
+        titleLengthNumber.disabled = !checked;
     };
     titleShouldContractCheck.addEventListener("change", onTitleShouldContractChange);
     var onTitleLengthChange = function(event) {
         setConfig("titleLength", event.target.value);
     };
     titleLengthNumber.addEventListener("change", onTitleLengthChange);
+
+    // Filtering options
+    var onFilterShowChange = function(event) {
+        setConfig("filterShow", event.target.checked);
+    };
+    filterShowCheck.addEventListener("change", onFilterShowChange);
 });
