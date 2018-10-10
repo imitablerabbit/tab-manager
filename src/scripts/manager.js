@@ -18,7 +18,7 @@ var tabs;
 function init() {
 	newForm = document.getElementById('new-tab-form');
 	newUrlBox = document.getElementById('new-url');
-	linksDiv = document.getElementById('links');
+	linksParent = document.getElementById('links');
 	tabCountSpan = document.getElementById("tabs-num");
 }
 
@@ -47,24 +47,22 @@ function getTabs() {
 		windowId: chrome.windows.WINDOW_ID_CURRENT
 	}, function (tabData) {
 		tabs = tabData
-		if (linksDiv == null) {
+		if (links == null) {
 			console.log("Error: unable to populate linksDiv: linksDiv is null");
 			return
 		}
 		setTabCount(tabs.length);
-		while (linksDiv.firstChild) {
-			linksDiv.removeChild(linksDiv.firstChild);
+		while (links.firstChild) {
+			links.removeChild(links.firstChild);
 		}
 
 		// Create a tab element for each of the tabs found
-		var linksUl = document.createElement("ul"); 
 		for (var i = 0; i < tabs.length; i++) {
 			var tabElement = createTabElement(i, tabs[i]);
 			var hr = document.createElement("hr");
-			linksUl.appendChild(hr);
-			linksUl.appendChild(tabElement);
+			links.appendChild(hr);
+			links.appendChild(tabElement);
 		}
-		linksDiv.appendChild(linksUl);
 	});
 }
 
@@ -73,32 +71,42 @@ function setTabCount(count) {
 }
 
 function createTabElement(index, tab) {
-	var tabTitle = generateTitle(tab.title);
-	var tabURL = tab.url;
-	var tabElement = document.createElement("li");
-	var tabLink = document.createElement("a");
+	var tabElement = document.createElement("div");
+	tabElement.id = "tab-" + index.toString();
+	tabElement.classList.add("tab");
+	var tabHeader = document.createElement("div");
+	tabHeader.classList.add("tab-header");
+	var tabLink = createTabLink(index, tab)
 	var closeButton = createTabCloseButton(index);
 	var editButton = createTabEditButton(index);
-	tabElement.id = "tab-" + index.toString();
+	tabHeader.appendChild(tabLink);
+	tabHeader.appendChild(editButton);
+	tabHeader.appendChild(closeButton);
+	tabElement.appendChild(tabHeader);
+	return tabElement;
+}
+
+function createTabLink(index, tab) {
+	var tabTitle = generateTitle(tab.title);
+	var tabURL = tab.url;
+	var tabLink = document.createElement("a");
 	tabLink.id = index;
+	tabLink.classList.add("tab-link");
 	tabLink.href = "#"; // make the cursor a pointer
-	tabLink.classList.add("tab");
 	tabLink.dataset.url = tabURL;
 	tabLink.innerText = tabTitle;
 	tabLink.onclick = function() {
 		changeTab(index);
 	};
-	tabElement.appendChild(tabLink);
-	tabElement.appendChild(closeButton);
-	tabElement.appendChild(editButton);
-	return tabElement;
+	return tabLink;
 }
 
 function createTabCloseButton(index) {
 	var closeLink = document.createElement("a");
 	closeLink.href = "#";
-	closeLink.innerText = "x";
-	closeLink.classList.add("close-button");
+	closeLink.innerText = "X";
+	closeLink.classList.add("button");
+	closeLink.classList.add("close");
 	closeLink.onclick = function() {
 		closeTab(index);
 	}
@@ -109,9 +117,10 @@ function createTabEditButton(index) {
 	var editLink = document.createElement("a");
 	editLink.href = "#";
 	editLink.innerText = "Edit";
-	editLink.classList.add("edit-button");
+	editLink.classList.add("button");
+	editLink.classList.add("edit");
 	editLink.onclick = function(event) {
-		editTab(event.target.parentElement, index);
+		editTab(event.target.parentElement.parentElement, index); // lol this needs to change
 	}
 	return editLink;
 }
@@ -184,13 +193,13 @@ function editTab(tabElement, tabIndex) {
 
 	// Get the tab list item and edit button
 	var li = tabElement
-	var editButton = liEditButton = li.querySelector(".edit-button");
-	var tabLink = li.querySelector(".tab");
+	var editButton = li.querySelector(".button.edit");
+	var tabLink = li.querySelector(".tab-link");
 	var url = tabLink.dataset.url;
 
 	// Create Edit form
 	var editForm = document.createElement("form");
-	editForm.id = "edit_form";
+	editForm.id = "edit-form";
 
 	var urlEdit = document.createElement("input");
 	urlEdit.type = "text";
