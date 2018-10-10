@@ -5,7 +5,10 @@ var linksDiv;
 var tabCountSpan;
 
 // Global config options
-var maxTitleLength = 16;
+// There should be some way of syncing these to the config options
+// and remove a need for defaults everywhere
+var titleShouldContract = true;
+var maxTitleLength = 15;
 var capitalisation = "uppercase";
 
 // The tab data
@@ -31,6 +34,9 @@ function setGlobalConfig(config) {
 	}
 	if (config.titleLength != null) {
 		maxTitleLength = config.titleLength;
+	}
+	if (config.titleShouldContract != null) {
+		titleShouldContract = config.titleShouldContract;
 	}
 }
 
@@ -118,7 +124,10 @@ function generateTitle(tabTitle) {
 	} else if (capitalisation === "lowercase") {
 		tabTitle = tabTitle.toLowerCase();
 	}
-	return limitString(tabTitle, maxTitleLength);
+	if (titleShouldContract) {
+		tabTitle = limitString(tabTitle, maxTitleLength);
+	}
+	return tabTitle;
 }
 
 //This will reduce the number of characters in a string
