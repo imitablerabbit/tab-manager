@@ -10,6 +10,10 @@ h1 {
 	display: block;
 }
 
+/*
+* New tab form formatting
+*/
+
 label, p {
 	display: inline-block;
 	width: 100%;
@@ -18,12 +22,12 @@ label, p {
 	margin-bottom: 3px;
 }
 
-#new_tab_form {
+#new-tab-form {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-#new_tab_form input[type=text]
+#new-tab-form input[type=text]
 {
 	width: 70%;
 	flex-grow: 2;
@@ -66,49 +70,50 @@ li {
 	margin-bottom: 4px;
 }
 
+/*
+* Tab list formatting
+*/
+
+.tab-header {
+	display: flex;
+	align-items: top;
+}
+
 a {
 	text-decoration: none;
 	display: inline;
 	color: gray;
 }
 
+a.tab-link {
+	color: #0266C8;
+	width: 100%;
+}
 
-a.edit_button {
+a.tab-link:hover {
+	text-decoration: underline;
+}
+
+a.button {
 	vertical-align: center;
 	display: inline;
-	float: right;
 	font-size: 0.8rem;
 	position: relative;
-	top: -1px;
-	left: -3px;
 	padding: 0px 5px;
 }
 
-a.edit_button:hover {
+a.button.edit:hover {
 	color: #0266C8;
 	cursor: pointer;
 }
 
-a.close_button {
-	display: inline;
-	float: right;
-	font-size: 140%;
-	position: relative;
-	top: -4px;
-	left: -3px;
-	padding: 0px 5px;
+a.button.close {
+	display: block;
 }
 
-a.close_button:hover {
+a.button.close:hover {
 	color: red;
 	cursor: pointer;
-}
-
-.tab {
-	color: #0266C8;
-}
-.tab:hover {
-	text-decoration: underline;
 }
 
 hr {
@@ -117,4 +122,8 @@ hr {
 	height: 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#edit-form {
+	margin-top: 5px;
 }

@@ -18,16 +18,29 @@
 
 				<p>Determines how the title for each tab displayed in the open tabs section should be written.</p>
 
-				<label for="capitalisation_default">Default:</label>
-				<input type="radio" name="capitalisation" id="capitalisation_default" value="default">
+				<label for="capitalisation-default">Default:</label>
+				<input type="radio" name="capitalisation" id="capitalisation-default" value="default">
 				<br>
 
-				<label for="capitalisation_uppercase">Uppercase:</label>
-				<input type="radio" name="capitalisation" id="capitalisation_uppercase" value="uppercase">
+				<label for="capitalisation-uppercase">Uppercase:</label>
+				<input type="radio" name="capitalisation" id="capitalisation-uppercase" value="uppercase">
 				<br>
 
-				<label for="capitalisation_lowercase">Lowercase:</label>
-				<input type="radio" name="capitalisation" id="capitalisation_lowercase" value="lowercase">
+				<label for="capitalisation-lowercase">Lowercase:</label>
+				<input type="radio" name="capitalisation" id="capitalisation-lowercase" value="lowercase">
+			</fieldset>
+
+			<fieldset>
+				<legend>Tab Title Contraction</legend>
+
+				<p>Should the tab titles be contracted if they contain too many characters?</p>
+				<label for="title-should-contract">Should Contract Title?:</label>
+				<input type="checkbox" name="title-should-contract" id="title-should-contract" checked=true>
+				<br>
+
+				<p>How many characters should be displayed before the title is contracted?</p>
+				<label for="title-length">Characters Count:</label>
+				<input type="number" name="title-length" id="title-length" value="15">
 			</fieldset>
 		</div>
 
