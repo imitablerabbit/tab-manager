@@ -26,7 +26,6 @@ function loadConfig(onConfigLoad) {
 
 // Set the global config so it can be used in the rest of the script
 function setGlobalConfig(config) {
-	console.log(config);
 	if (config.capitalisation != null) {
 		capitalisation = config.capitalisation;
 	}

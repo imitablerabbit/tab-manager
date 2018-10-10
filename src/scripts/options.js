@@ -1,16 +1,19 @@
 var capitalisation = "uppercase";
+var titleShouldContract = true;
 var titleLength = 15;
 
 // Config menu elements
 var capitalisationDefaultRadio;
 var capitalisationUppercaseRadio;
 var capitalisationLowercaseRadio;
+var titleShouldContractCheck;
 var titleLengthNumber;
 
 function init() {
     capitalisationDefaultRadio = document.getElementById("capitalisation-default");
     capitalisationUppercaseRadio = document.getElementById("capitalisation-uppercase");
     capitalisationLowercaseRadio = document.getElementById("capitalisation-lowercase");
+    titleShouldContractCheck = document.getElementById("title-should-contract");
     titleLengthNumber = document.getElementById("title-length");
 }
 
@@ -21,13 +24,16 @@ function loadConfig(onConfigLoad) {
 function onConfigLoad(config) {
     if (config.capitalisation != null) {
 		capitalisation = config.capitalisation;
-	}
+    }
+    if (config.titleShouldContract != null) {
+        titleShouldContract = config.titleShouldContract;
+    }
 	if (config.titleLength != null) {
 		titleLength = config.titleLength;
 	}
 
     setCapitalisation(capitalisation);
-    setTitleLength(titleLength);
+    setTitleLength(titleShouldContract, titleLength);
 }
 
 function setCapitalisation(capitalisation) {
@@ -40,9 +46,13 @@ function setCapitalisation(capitalisation) {
     }
 }
 
-function setTitleLength(titleLength) {
-    if (titleLength != null) {
+function setTitleLength(titleShouldContract, titleLength) {
+    if (titleShouldContract) {
+        titleShouldContractCheck.checked = true;
         titleLengthNumber.value = titleLength;
+    } else {
+        titleShouldContractCheck.checked = false;
+        titleLengthNumber.disabled = true;
     }
 }
 
@@ -56,16 +66,27 @@ window.addEventListener("load", function (evt) {
     init();
     loadConfig(onConfigLoad);
 
-    // Add the listeners for the different options
+    // Capitalisation options
     var onCapitalisationChange = function(event) {
         setConfig("capitalisation", event.target.value);
     };
     capitalisationDefaultRadio.addEventListener("change", onCapitalisationChange);
     capitalisationUppercaseRadio.addEventListener("change", onCapitalisationChange);
     capitalisationLowercaseRadio.addEventListener("change", onCapitalisationChange);
+
+    // Title length options
+    var onTitleShouldContractChange = function(event) {
+        var checked = event.target.checked;
+        setConfig("titleShouldContract", checked);
+        if (checked) {
+            titleLengthNumber.disabled = false;
+        } else {
+            titleLengthNumber.disabled = true;
+        }
+    };
+    titleShouldContractCheck.addEventListener("change", onTitleShouldContractChange);
     var onTitleLengthChange = function(event) {
         setConfig("titleLength", event.target.value);
     };
     titleLengthNumber.addEventListener("change", onTitleLengthChange);
 });
-
