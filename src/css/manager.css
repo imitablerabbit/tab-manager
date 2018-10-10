@@ -38,11 +38,11 @@ label, p {
 input[type=text] {
 	font-size: 0.7rem;
 	width: 100%;
-	margin: 0;
 	padding: 3px;
 	border: solid thin grey;
 	box-sizing: border-box;
-	margin-bottom: 5px;
+	margin: 0px;
+	margin-bottom: 10px;
 }
 
 input[type=submit] {
@@ -73,6 +73,10 @@ li {
 /*
 * Tab list formatting
 */
+
+#filter {
+	display: none;
+}
 
 .tab-header {
 	display: flex;

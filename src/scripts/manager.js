@@ -3,6 +3,8 @@ var newForm;
 var newUrlBox;
 var linksDiv;
 var tabCountSpan;
+var filterInput;
+var filterDiv;
 
 // Global config options
 // There should be some way of syncing these to the config options
@@ -10,6 +12,7 @@ var tabCountSpan;
 var titleShouldContract = true;
 var maxTitleLength = 15;
 var capitalisation = "uppercase";
+var filterShow = true;
 
 // The tab data
 var tabs; 
@@ -20,6 +23,8 @@ function init() {
 	newUrlBox = document.getElementById('new-url');
 	linksParent = document.getElementById('links');
 	tabCountSpan = document.getElementById("tabs-num");
+	filterInput = document.getElementById("filter-text");
+	filterDiv = document.getElementById("filter");
 }
 
 // Load the config from the local storage
@@ -38,6 +43,9 @@ function setGlobalConfig(config) {
 	if (config.titleShouldContract != null) {
 		titleShouldContract = config.titleShouldContract;
 	}
+	if (config.filterShow != null) {
+		filterShow = config.filterShow;
+	}
 }
 
 // Query all of the tabs and generate the list of tabs at the
@@ -51,19 +59,23 @@ function getTabs() {
 			console.log("Error: unable to populate linksDiv: linksDiv is null");
 			return
 		}
-		setTabCount(tabs.length);
-		while (links.firstChild) {
-			links.removeChild(links.firstChild);
-		}
-
-		// Create a tab element for each of the tabs found
-		for (var i = 0; i < tabs.length; i++) {
-			var tabElement = createTabElement(i, tabs[i]);
-			var hr = document.createElement("hr");
-			links.appendChild(hr);
-			links.appendChild(tabElement);
-		}
+		displayTabs(tabs);
 	});
+}
+
+function displayTabs(tabs) {
+	setTabCount(tabs.length);
+	while (links.firstChild) {
+		links.removeChild(links.firstChild);
+	}
+
+	// Create a tab element for each of the tabs found
+	for (var i = 0; i < tabs.length; i++) {
+		var tabElement = createTabElement(i, tabs[i]);
+		var hr = document.createElement("hr");
+		links.appendChild(hr);
+		links.appendChild(tabElement);
+	}
 }
 
 function setTabCount(count) {
@@ -260,19 +272,45 @@ function closeTab(tabIndex) {
 	});
 }
 
+function showFilter() {
+	if (filterShow) {
+		filterDiv.style.display = "block";
+	} else {
+		filterDiv.style.display = "none";
+	}
+}
+
+function filterTabs(event) {
+	var text = event.target.value;
+	var regex = new RegExp(text, "i");
+	var filteredTabs = [];
+	for (var i = 0; i < tabs.length; i++) {
+		var tab = tabs[i];
+		if (tab.title.search(regex) != -1) {
+			filteredTabs.push(tab);
+		}
+	}
+	displayTabs(filteredTabs);
+}
+
 // Wait for the DOM to load before loading config.
 window.addEventListener("load", function (evt) {
 	init();
 	loadConfig(function(config) {
 		setGlobalConfig(config);
+		showFilter();
 		getTabs();
 
 		// Add the event listener
 		if (newForm != null) {
 			newForm.addEventListener("submit", createTab);
-			console.log("Event listener added successfully.");
 		} else {
 			console.log("FORM_ID could not be found!");
+		}
+
+		// Add filtering events
+		if (filterInput != null && filterShow) {
+			filterInput.addEventListener("input", filterTabs);
 		}
 	});
 });
