@@ -6,15 +6,8 @@ var tabCountSpan;
 var filterInput;
 var filterDiv;
 
-// Global config options
-// There should be some way of syncing these to the config options
-// and remove a need for defaults everywhere
-var titleShouldContract = true;
-var maxTitleLength = 15;
-var capitalisation = "uppercase";
-var filterShow = true;
-
-// The tab data
+// Global data
+var config;
 var tabs; 
 
 // Initialise the global variables and load the config.
@@ -30,22 +23,6 @@ function init() {
 // Load the config from the local storage
 function loadConfig(onConfigLoad) {
 	chrome.storage.sync.get(onConfigLoad);
-}
-
-// Set the global config so it can be used in the rest of the script
-function setGlobalConfig(config) {
-	if (config.capitalisation != null) {
-		capitalisation = config.capitalisation;
-	}
-	if (config.titleLength != null) {
-		maxTitleLength = config.titleLength;
-	}
-	if (config.titleShouldContract != null) {
-		titleShouldContract = config.titleShouldContract;
-	}
-	if (config.filterShow != null) {
-		filterShow = config.filterShow;
-	}
 }
 
 // Query all of the tabs and generate the list of tabs at the
@@ -140,13 +117,13 @@ function createTabEditButton(index) {
 // This will return the correct formation of the tab title to be displayed on 
 // page
 function generateTitle(tabTitle) {
-	if (capitalisation === "uppercase") {
+	if (config.capitalisation === "uppercase") {
 		tabTitle = tabTitle.toUpperCase();
-	} else if (capitalisation === "lowercase") {
+	} else if (config.capitalisation === "lowercase") {
 		tabTitle = tabTitle.toLowerCase();
 	}
-	if (titleShouldContract) {
-		tabTitle = limitString(tabTitle, maxTitleLength);
+	if (config.titleShouldContract) {
+		tabTitle = limitString(tabTitle, config.titleLength);
 	}
 	return tabTitle;
 }
@@ -155,7 +132,7 @@ function generateTitle(tabTitle) {
 function limitString(text, limitSize) {
 	var textLength = text.length;
 	text = text.substring(0, limitSize);
-	if (textLength > limitSize) {
+	if (textLength > limitSize - 3) {
 		text = text + "...";
 	}
 	return text;
@@ -273,8 +250,11 @@ function closeTab(tabIndex) {
 }
 
 function showFilter() {
-	if (filterShow) {
+	if (config.filterShow) {
 		filterDiv.style.display = "block";
+		if (filterInput != null && config.filterShow) {
+			filterInput.addEventListener("input", filterTabs);
+		}
 	} else {
 		filterDiv.style.display = "none";
 	}
@@ -296,8 +276,8 @@ function filterTabs(event) {
 // Wait for the DOM to load before loading config.
 window.addEventListener("load", function (evt) {
 	init();
-	loadConfig(function(config) {
-		setGlobalConfig(config);
+	loadConfig(function(c) {
+		config = c
 		showFilter();
 		getTabs();
 
@@ -306,11 +286,6 @@ window.addEventListener("load", function (evt) {
 			newForm.addEventListener("submit", createTab);
 		} else {
 			console.log("FORM_ID could not be found!");
-		}
-
-		// Add filtering events
-		if (filterInput != null && filterShow) {
-			filterInput.addEventListener("input", filterTabs);
 		}
 	});
 });

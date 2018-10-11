@@ -16,6 +16,11 @@
 
 	"options_page": "options.html",
 
+	"background": {
+		"scripts": ["scripts/background.js"],
+		"persistent": false
+	},
+
 	"commands": {
 		"_execute_browser_action": {
 			"suggested_key": {
