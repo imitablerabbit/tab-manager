@@ -6,13 +6,11 @@ var tabCountSpan;
 var filterInput;
 var filterDiv;
 
-// Global config options
-// There should be some way of syncing these to the config options
-// and remove a need for defaults everywhere
-var titleShouldContract = true;
-var maxTitleLength = 15;
-var capitalisation = "uppercase";
-var filterShow = true;
+// Config
+var titleShouldContract;
+var maxTitleLength;
+var capitalisation;
+var filterShow;
 
 // The tab data
 var tabs; 

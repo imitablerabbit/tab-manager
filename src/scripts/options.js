@@ -1,8 +1,3 @@
-var capitalisation = "uppercase";
-var titleShouldContract = true;
-var titleLength = 15;
-var filterShow = true;
-
 // Config menu elements
 var capitalisationDefaultRadio;
 var capitalisationUppercaseRadio;
