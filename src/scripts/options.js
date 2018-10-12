@@ -89,7 +89,7 @@ window.addEventListener("load", function (evt) {
     var onTitleLengthChange = function(event) {
         setConfig("titleLength", event.target.value);
     };
-    titleLengthNumber.addEventListener("change", onTitleLengthChange);
+    titleLengthNumber.addEventListener("input", onTitleLengthChange);
 
     // Filtering options
     var onFilterShowChange = function(event) {

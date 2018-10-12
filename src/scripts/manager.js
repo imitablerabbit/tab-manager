@@ -1,7 +1,7 @@
 // HTML elements to be populated
 var newForm;
 var newUrlBox;
-var linksDiv;
+var links;
 var tabCountSpan;
 var filterInput;
 var filterDiv;
@@ -14,7 +14,7 @@ var tabs;
 function init() {
 	newForm = document.getElementById('new-tab-form');
 	newUrlBox = document.getElementById('new-url');
-	linksParent = document.getElementById('links');
+	links = document.getElementById('links');
 	tabCountSpan = document.getElementById("tabs-num");
 	filterInput = document.getElementById("filter-text");
 	filterDiv = document.getElementById("filter");
@@ -33,10 +33,11 @@ function getTabs() {
 	}, function (tabData) {
 		tabs = tabData
 		if (links == null) {
-			console.log("Error: unable to populate linksDiv: linksDiv is null");
+			console.log("Error: unable to populate links: links is null");
 			return
 		}
-		displayTabs(tabs);
+		filteredTabs = filterTabs(tabs);
+		displayTabs(filteredTabs);
 	});
 }
 
@@ -48,18 +49,32 @@ function displayTabs(tabs) {
 
 	// Create a tab element for each of the tabs found
 	for (var i = 0; i < tabs.length; i++) {
-		var tabElement = createTabElement(i, tabs[i]);
+		var tabElement = createTabElement(tabs[i]);
 		var hr = document.createElement("hr");
 		links.appendChild(hr);
 		links.appendChild(tabElement);
 	}
 }
 
+function loadingTab(index) {
+	var tabElement = links.querySelector("#tab-" + index + "");
+	var tabLink = tabElement.querySelector(".tab-link");
+	tabLink.innerText = generateTitle("Loading...");
+}
+
+function updateTab(index, tab) {
+	var tabElement = links.querySelector("#tab-" + index + "");
+	var newTabElement = createTabElement(tab);
+	tabs[index] = tab; 
+	tabElement.parentElement.replaceChild(newTabElement, tabElement);
+}
+
 function setTabCount(count) {
 	tabCountSpan.innerHTML = count;
 }
 
-function createTabElement(index, tab) {
+function createTabElement(tab) {
+	let index = tab.index;
 	var tabElement = document.createElement("div");
 	tabElement.id = "tab-" + index.toString();
 	tabElement.classList.add("tab");
@@ -109,6 +124,7 @@ function createTabEditButton(index) {
 	editLink.classList.add("button");
 	editLink.classList.add("edit");
 	editLink.onclick = function(event) {
+		event.preventDefault();
 		editTab(event.target.parentElement.parentElement, index); // lol this needs to change
 	}
 	return editLink;
@@ -158,15 +174,23 @@ function createTab(event) {
 
 // Changes the location of the tab with the specified index to the new url.
 function changeLocation(tabIndex, newURL) {
+	function onUpdated(id, data, tab) {
+		if (tab.index == tabIndex && data.status == "loading") {
+			loadingTab(tabIndex);
+		}
+		if (tab.index == tabIndex && data.status == "complete") {
+			updateTab(tabIndex, tab);
+			chrome.tabs.onUpdated.removeListener(onUpdated);
+		}
+	}
 	chrome.tabs.query({
 		windowId: chrome.windows.WINDOW_ID_CURRENT,
 		index: tabIndex
 	}, function (array) {
+		chrome.tabs.onUpdated.addListener(onUpdated);
 		chrome.tabs.update(array[0].id, {
 			url: addHttp(newURL)
-		}, function () {});
-		console.log("Closing window...");
-		window.close();
+		});
 	});
 }
 
@@ -215,24 +239,22 @@ function editTab(tabElement, tabIndex) {
 
 	// Change the edit button to represent the new save button
 	editButton.innerText = "Save";
-	f = function(e) {
-		e.preventDefault();
-
-		// Handle the edit form submission
+	f = function(event) {
+		// event.preventDefault();
 		var newURL = urlEdit.value;
-
-		// Set the new URL
-		if (newURL !== url) {
-			changeLocation(parseInt(tabLink.id), newURL);
-		}
 
 		// Remove the form
 		li.removeChild(editForm);
-
-		// Change it back to save
 		editButton.innerText = "Edit";
-		editButton.onclick = function() {
+		editFun = function() {
 			editTab(tabElement, tabIndex);
+		}
+		editForm.onsubmit = editFun;
+		editButton.onclick = editFun;
+
+		// change the page location and reload the tabs
+		if (newURL !== url) {
+			changeLocation(parseInt(tabLink.id), newURL);
 		}
 	}
 	editButton.onclick = f;
@@ -253,15 +275,18 @@ function showFilter() {
 	if (config.filterShow) {
 		filterDiv.style.display = "block";
 		if (filterInput != null && config.filterShow) {
-			filterInput.addEventListener("input", filterTabs);
+			filterInput.addEventListener("input", function() {
+				filteredTabs = filterTabs(tabs);
+				displayTabs(filteredTabs);
+			});
 		}
 	} else {
 		filterDiv.style.display = "none";
 	}
 }
 
-function filterTabs(event) {
-	var text = event.target.value;
+function filterTabs(tabs) {
+	var text = filterInput.value;
 	var regex = new RegExp(text, "i");
 	var filteredTabs = [];
 	for (var i = 0; i < tabs.length; i++) {
@@ -270,7 +295,7 @@ function filterTabs(event) {
 			filteredTabs.push(tab);
 		}
 	}
-	displayTabs(filteredTabs);
+	return filteredTabs;
 }
 
 // Wait for the DOM to load before loading config.
