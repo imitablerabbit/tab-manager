@@ -35,7 +35,7 @@ label, p {
 	margin: 0px;
 }
 
-input[type=text] {
+input[type=text], input[type=search] {
 	font-size: 0.7rem;
 	width: 100%;
 	padding: 3px;
