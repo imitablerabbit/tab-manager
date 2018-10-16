@@ -11,25 +11,6 @@
   Now on the chrome store!<br>
   Link:
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
-  <h4>Change log:</h4>
-  <ul>
-    <li>Upload to the chrome extension store</li>
-    <li>Pack the extension</li>
-    <li>Draw 16x16 png icon for the extension</li>
-    <li>Added a check for http:// so new tabs will work without errors</li>
-    <li>Added a shortcut to open the pop-up window</li>
-    <li>Added a way to open a new url in the current tab</li>
-    <li>Added a checkbox to select whether a new tab should be opened</li>
-    <li>Added a method to close a tab</li>
-    <li>Added a new link to close the tab</li>
-    <li>Reduced the number of characters for the close button</li>
-    <li>Added a counter for the tabs</li>
-    <li>Added a limit to the number of characters in a title</li>
-    <li>Added a full list of the tabs</li>
-    <li>Added a new tab input form</li>
-    <li>Reduce the need for http://</li>
-    <li>Created structure for the extension</li>
-  </ul>
   <h2>Installation:</h2>
   <strong>Version 1</strong>
   <ol>
