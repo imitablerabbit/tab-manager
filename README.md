@@ -12,7 +12,7 @@
   Now on the chrome store!<br>
   Link:
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
-  <br>
+  <br><br>
   <strong>Manual Install 1</strong>
   <ol>
     <li>Download the files from github</li>
