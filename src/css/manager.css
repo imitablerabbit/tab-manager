@@ -92,6 +92,7 @@ a {
 a.tab-link {
 	color: #0266C8;
 	width: 100%;
+	word-break: break-word;
 }
 
 a.tab-link:hover {
