@@ -7,12 +7,12 @@
 </p>
 
 <p>
-  <h4>Chrome Store:</h4>
+  <h2>Installation:</h2>
+  <strong>Chrome Store:</strong>
   Now on the chrome store!<br>
   Link:
   <a href="https://chrome.google.com/webstore/detail/tab-manager/joedmpmimnhapomaphaoohgaipeajiji">Tab Manager</a>
-  <h2>Installation:</h2>
-  <strong>Version 1</strong>
+  <strong>Manual Install 1</strong>
   <ol>
     <li>Download the files from github</li>
     <li>Extract the items</li>
@@ -22,7 +22,7 @@
     <li>Click on the install button in the pop-up window</li>
     <li>Enjoy!</li>
   </ol>
-  <strong>Version 2</strong>
+  <strong>Manual Install 2</strong>
   <ol>
     <li>Download the zipped files</li>
     <li>Extract the files</li>
